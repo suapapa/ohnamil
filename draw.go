@@ -72,6 +72,7 @@ func drawDisp(dc *gg.Context, nick string, now time.Time, events calendar.Events
 		dc.SavePNG(display)
 	} else {
 		updatePanel(dc.Image())
+		updatePanel(dc.Image())
 	}
 }
 

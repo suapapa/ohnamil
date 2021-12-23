@@ -36,7 +36,7 @@ func initHW() error {
 }
 
 func updatePanel(img image.Image) {
-	img = imaging.Rotate(img, 90, color.White)
+	img = imaging.Rotate(img, 0, color.White)
 
 	if err := dev.Draw(img.Bounds(), img, image.Point{}); err != nil {
 		panic(err)
