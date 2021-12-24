@@ -1,4 +1,4 @@
-module kwcal-frame
+module github.kakaocorp.com/cassian-l/ohnamil
 
 go 1.17
 

@@ -58,24 +58,29 @@ func drawDisp(dc *gg.Context, nick string, now time.Time, events calendar.Events
 	items := calItems(events.Items)
 	sort.Sort(items)
 
-	for _, item := range events.Items {
-		start := item.Start.DateTime
-		end := item.End.DateTime
+	if len(events.Items) == 0 {
+		drawStringAnchoredCenter(dc, "없음", 100, dispW/2, dispH/2)
+	} else {
+		for _, item := range events.Items {
+			start := item.Start.DateTime
+			end := item.End.DateTime
 
-		str := stripStr(fmt.Sprintf("- %s ~ %s", start.Format("15:04"), end.Format("15:04")))
-		drawString(dc, str, fsH1, 20, h+fsH1+10)
-		h += fsH1 + 10
-		str = stripStr(fmt.Sprintf("    %v", item.Summary))
-		drawString(dc, str, fsH1, 20, h+fsH1+10)
-		h += fsH1 + 10
+			str := stripStr(fmt.Sprintf("- %s ~ %s", start.Format("15:04"), end.Format("15:04")))
+			drawString(dc, str, fsH1, 20, h+fsH1+10)
+			h += fsH1 + 10
+			str = stripStr(fmt.Sprintf("    %v", item.Summary))
+			drawString(dc, str, fsH1, 20, h+fsH1+10)
+			h += fsH1 + 10
 
-		if h > dispH {
-			break
+			if h > dispH {
+				break
+			}
+
+			// // str = stripStr(fmt.Sprintf("  %s ~ %s", start.Format("20060102-15:04"), end.Format("20060102-15:04")))
+			// drawString(dc, str, fsH3, 10, h+fsH3+10)
+			// h += fsH3 + 10
 		}
 
-		// // str = stripStr(fmt.Sprintf("  %s ~ %s", start.Format("20060102-15:04"), end.Format("20060102-15:04")))
-		// drawString(dc, str, fsH3, 10, h+fsH3+10)
-		// h += fsH3 + 10
 	}
 
 	// draw footer
@@ -108,6 +113,15 @@ func drawStringAnchoredBR(dc *gg.Context, text string, fontSize, x, y float64) {
 	}
 	dc.SetFontFace(ff)
 	dc.DrawStringAnchored(text, x-20, y, 1.0, -0.5)
+}
+
+func drawStringAnchoredCenter(dc *gg.Context, text string, fontSize, x, y float64) {
+	ff, err := loadFontFace(fontSize)
+	if err != nil {
+		panic(err)
+	}
+	dc.SetFontFace(ff)
+	dc.DrawStringAnchored(text, x-20, y, 0.5, 0.5)
 }
 
 func loadFontFace(points float64) (font.Face, error) {
