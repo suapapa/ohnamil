@@ -3,6 +3,7 @@ package main
 import (
 	"embed"
 	"fmt"
+	"image/color"
 	"sort"
 	"time"
 
@@ -26,24 +27,33 @@ var (
 	//go:embed assets/RixPoetry.ttf
 	resource embed.FS
 
-	h = 0.0
+	ttf *truetype.Font
+	h   = 0.0
 )
 
-// func drawAuthCode(qrImg image.Image, code string) {
-// 	dc := gg.NewContext(dispW, dispH)
-// 	dc.SetColor(color.White)
-// 	dc.Clear()
+func init() {
+	var err error
+	fontdata, err := resource.ReadFile("assets/RixPoetry.ttf")
+	if err != nil {
+		panic(err)
+	}
+	ttf, err = truetype.Parse(fontdata)
+	if err != nil {
+		panic(err)
+	}
 
-// 	dc.DrawImage(qrImg, dispW/2-256, dispH/2-256)
-// 	drawString(dc, code, 40, dispW/2, dispH/2+40)
+}
 
-// 	dc.SavePNG(display)
-// }
 func drawDisp(dc *gg.Context, nick string, now time.Time, events calendar.Events) {
+	dc.SetColor(color.White)
+	dc.Clear()
+	dc.SetRGB(0, 0, 0)
+
 	h = 10.0
 
-	drawString(dc, fmt.Sprintf("# %s 의 오늘일정: %s #", nick, now.Format("2006-01-02 15:04")), fsH2, 20, h+fsH2+10)
+	drawString(dc, fmt.Sprintf("%s 의 오늘일정", nick), fsH2, 20, h+fsH2+10)
 	h += fsH2 + 10
+	h += 5
 
 	items := calItems(events.Items)
 	sort.Sort(items)
@@ -68,6 +78,10 @@ func drawDisp(dc *gg.Context, nick string, now time.Time, events calendar.Events
 		// h += fsH3 + 10
 	}
 
+	// draw footer
+	_, ip, _, _ := resolveNet()
+	drawStringAnchoredBR(dc, ip+"; "+now.Format("2006-01-02 15:04"), fsH3, dispW, dispH)
+
 	if flagDryrun {
 		dc.SavePNG(display)
 	} else {
@@ -79,7 +93,6 @@ func drawDisp(dc *gg.Context, nick string, now time.Time, events calendar.Events
 // ----
 
 func drawString(dc *gg.Context, text string, fontSize, x, y float64) {
-	dc.SetRGB(0, 0, 0)
 	ff, err := loadFontFace(fontSize)
 	if err != nil {
 		panic(err)
@@ -88,20 +101,20 @@ func drawString(dc *gg.Context, text string, fontSize, x, y float64) {
 	dc.DrawString(text, x, y)
 }
 
-func loadFontFace(points float64) (font.Face, error) {
-	data, err := resource.ReadFile("assets/RixPoetry.ttf")
+func drawStringAnchoredBR(dc *gg.Context, text string, fontSize, x, y float64) {
+	ff, err := loadFontFace(fontSize)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
-	f, err := truetype.Parse(data)
-	if err != nil {
-		return nil, err
-	}
+	dc.SetFontFace(ff)
+	dc.DrawStringAnchored(text, x-20, y, 1.0, -0.5)
+}
 
-	nface := truetype.NewFace(f, &truetype.Options{
+func loadFontFace(points float64) (font.Face, error) {
+	ff := truetype.NewFace(ttf, &truetype.Options{
 		Size:    points,
 		Hinting: font.HintingFull,
 		// Hinting: font.HintingNone,
 	})
-	return nface, nil
+	return ff, nil
 }

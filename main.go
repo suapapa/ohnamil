@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"image/color"
 	"log"
 	"time"
 
@@ -37,8 +36,6 @@ func showTodayEvents(userID string) {
 		}
 
 		dc := gg.NewContext(dispW, dispH)
-		dc.SetColor(color.White)
-		dc.Clear()
 		drawDisp(dc, resp.Nickname, now, resp.Events)
 
 		<-tkr.C
