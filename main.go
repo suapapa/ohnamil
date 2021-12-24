@@ -10,11 +10,13 @@ import (
 )
 
 var (
-	flagDryrun bool
+	flagDryrun   bool
+	flagInterval string
 )
 
 func main() {
 	flag.BoolVar(&flagDryrun, "n", false, "dont disp. just save png")
+	flag.StringVar(&flagInterval, "i", "15m", "display update interval")
 	flag.Parse()
 
 	initHW()
@@ -26,7 +28,11 @@ func main() {
 func showTodayEvents(userID string) {
 	calBol := calendar.NewClient(userID)
 
-	tkr := time.NewTicker(15 * time.Minute)
+	dur, err := time.ParseDuration(flagInterval)
+	if err != nil {
+		log.Fatal(err)
+	}
+	tkr := time.NewTicker(dur)
 
 	for {
 		now := time.Now()

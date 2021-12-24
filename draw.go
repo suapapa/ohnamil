@@ -51,7 +51,7 @@ func drawDisp(dc *gg.Context, nick string, now time.Time, events calendar.Events
 
 	h = 10.0
 
-	drawString(dc, fmt.Sprintf("%s 의 오늘일정", nick), fsH2, 20, h+fsH2+10)
+	drawString(dc, fmt.Sprintf("%s 의 오늘 남은 일정", nick), fsH2, 20, h+fsH2+10)
 	h += fsH2 + 10
 	h += 5
 
@@ -80,7 +80,7 @@ func drawDisp(dc *gg.Context, nick string, now time.Time, events calendar.Events
 
 	// draw footer
 	_, ip, _, _ := resolveNet()
-	drawStringAnchoredBR(dc, ip+"; "+now.Format("2006-01-02 15:04"), fsH3, dispW, dispH)
+	drawStringAnchoredBR(dc, ip+"; "+now.Format("2006-01-02 15:04")+"; "+flagInterval, fsH3, dispW, dispH)
 
 	if flagDryrun {
 		dc.SavePNG(display)
