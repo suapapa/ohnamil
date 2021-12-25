@@ -1,5 +1,5 @@
 [Unit]
-Description=kwcal-frame
+Description=ohnamil - today's remain events
 Wants=network-online.target
 After=network-online.target
 
