@@ -75,12 +75,7 @@ func drawDisp(dc *gg.Context, nick string, now time.Time, events calendar.Events
 			if h > dispH {
 				break
 			}
-
-			// // str = stripStr(fmt.Sprintf("  %s ~ %s", start.Format("20060102-15:04"), end.Format("20060102-15:04")))
-			// drawString(dc, str, fsH3, 10, h+fsH3+10)
-			// h += fsH3 + 10
 		}
-
 	}
 
 	// draw footer

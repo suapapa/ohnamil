@@ -34,9 +34,12 @@ func showTodayEvents(userID string) {
 	}
 	tkr := time.NewTicker(dur)
 
+	now := time.Now()
+	end := time.Date(now.Year(), now.Month(), now.Day(), 23, 59, 59, 0, now.Location())
 	for {
-		now := time.Now()
-		resp, err := calBol.PersonalEvents(now, now.Add(24*time.Hour), true, "")
+		log.Printf("update display for now: %v", now)
+		// 오늘 남은 일정 조회
+		resp, err := calBol.PersonalEvents(now, end, true, "")
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -44,12 +47,6 @@ func showTodayEvents(userID string) {
 		dc := gg.NewContext(dispW, dispH)
 		drawDisp(dc, resp.Nickname, now, resp.Events)
 
-		<-tkr.C
+		now = <-tkr.C
 	}
-	// // jEnc := json.NewEncoder(os.Stdout)
-	// // jEnc.SetIndent("", "  ")
-	// for _, e := range resp.Events.Items {
-	// 	// jEnc.Encode(e)
-	// 	fmt.Printf("%s - %v ~ %v", e.Summary, e.Start.DateTime, e.End.DateTime)
-	// }
 }
