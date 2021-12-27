@@ -35,8 +35,8 @@ func showTodayEvents(userID string) {
 	tkr := time.NewTicker(dur)
 
 	now := time.Now()
-	end := time.Date(now.Year(), now.Month(), now.Day(), 23, 59, 59, 0, now.Location())
 	for {
+		end := time.Date(now.Year(), now.Month(), now.Day(), 23, 59, 59, 0, now.Location())
 		log.Printf("update display for now: %v", now)
 		// 오늘 남은 일정 조회
 		resp, err := calBol.PersonalEvents(now, end, true, "")
