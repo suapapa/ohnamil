@@ -10,8 +10,8 @@ github.com/sirupsen/logrus v1.8.1/go.mod h1:yWOB1SBYBC5VeMP7gHvWumXLIWorT60ONWic
 github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
 github.com/suapapa/go_devices v1.0.1 h1:mwWvZeacrUMwmyqAyvdVpFsDlOfFyC6RgXciBxuZVhc=
 github.com/suapapa/go_devices v1.0.1/go.mod h1:svDC/zziF9RmcNunx8RpbFQSgibf/ZTYmeeQQFWu/Eg=
-github.kakaocorp.com/DeviceDev/go_kakaowork-bot v0.0.0-20211223054946-ac8624a8bfb2 h1:h/mZgzX6Nxetww6cRaBHfkdcVuv6IYcS429qlR288Tg=
-github.kakaocorp.com/DeviceDev/go_kakaowork-bot v0.0.0-20211223054946-ac8624a8bfb2/go.mod h1:CVosk7Bc+JYcdSQSKvwntoz1v+d9x8+bOxrgP8DVJtE=
+github.kakaoenterprise.in/IoTEngine/go_kakaowork-bot v0.0.0-20220203033001-9ae9cfce50ac h1:/dKCucUmgZ3e8yFT5DbKcPrFEJPEHwcFyrcFyW8JWwc=
+github.kakaoenterprise.in/IoTEngine/go_kakaowork-bot v0.0.0-20220203033001-9ae9cfce50ac/go.mod h1:nWKRAyxhhQQDPU1UemWGTjkhsXxUahr7/Nl7UabsjPQ=
 golang.org/x/image v0.0.0-20191009234506-e7c1f5e7dbb8/go.mod h1:FeLwcggjj3mMvU+oOTbSwawSJRM1uh48EjtB4UJZlP0=
 golang.org/x/image v0.0.0-20211028202545-6944b10bf410 h1:hTftEOvwiOq2+O8k2D5/Q7COC7k5Qcrgc2TFURJYnvQ=
 golang.org/x/image v0.0.0-20211028202545-6944b10bf410/go.mod h1:023OzeP/+EPmXeapQh35lcL3II3LrY8Ic+EFFKVhULM=
@@ -19,5 +19,6 @@ golang.org/x/sys v0.0.0-20191026070338-33540a1f6037/go.mod h1:h1NjWce9XRLGQEsW7w
 golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
 golang.org/x/text v0.3.6/go.mod h1:5Zoc/QRtKVWzQhOtBMvqHzDpF6irO9z98xDceosuGiQ=
 golang.org/x/tools v0.0.0-20180917221912-90fa682c2a6e/go.mod h1:n7NCudcB/nEzxVGmLbDWY5pfWTLqBcC2KZ6jyYvM4mQ=
-periph.io/x/periph v3.6.3+incompatible h1:li7kK6fLqToF707bgEFGKRyVIuQLxeHAgv6fSnJZ9p0=
 periph.io/x/periph v3.6.3+incompatible/go.mod h1:EWr+FCIU2dBWz5/wSWeiIUJTriYv9v2j2ENBmgYyy7Y=
+periph.io/x/periph v3.6.8+incompatible h1:lki0ie6wHtvlilXhIkabdCUQMpb5QN4Fx33yNQdqnaA=
+periph.io/x/periph v3.6.8+incompatible/go.mod h1:EWr+FCIU2dBWz5/wSWeiIUJTriYv9v2j2ENBmgYyy7Y=

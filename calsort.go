@@ -1,6 +1,6 @@
 package main
 
-import "github.kakaocorp.com/DeviceDev/go_kakaowork-bot/calendar"
+import "github.kakaoenterprise.in/IoTEngine/go_kakaowork-bot/calendar"
 
 type calItems []*calendar.Item
 

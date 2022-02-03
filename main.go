@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/fogleman/gg"
-	"github.kakaocorp.com/DeviceDev/go_kakaowork-bot/calendar"
+	"github.kakaoenterprise.in/IoTEngine/go_kakaowork-bot/calendar"
 )
 
 var (

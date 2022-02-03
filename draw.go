@@ -9,7 +9,7 @@ import (
 
 	"github.com/fogleman/gg"
 	"github.com/golang/freetype/truetype"
-	"github.kakaocorp.com/DeviceDev/go_kakaowork-bot/calendar"
+	"github.kakaoenterprise.in/IoTEngine/go_kakaowork-bot/calendar"
 	"golang.org/x/image/font"
 )
 
