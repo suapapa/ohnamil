@@ -44,6 +44,10 @@ func init() {
 
 }
 
+var (
+	lastDispItems []Event
+)
+
 func drawDisp(dc *gg.Context, nick string, now time.Time, events calendar.Events) {
 	dc.SetColor(color.White)
 	dc.Clear()
@@ -58,17 +62,25 @@ func drawDisp(dc *gg.Context, nick string, now time.Time, events calendar.Events
 	items := calItems(events.Items)
 	sort.Sort(items)
 
+	dispItems := make([]Event, len(events.Items))
+	for i, item := range events.Items {
+		dispItems[i].FromT = item.Start.DateTime.Format("15:04")
+		dispItems[i].ToT = item.End.DateTime.Format("15:04")
+		dispItems[i].Desc = item.Summary
+	}
+
+	if isEqualEvents(dispItems, lastDispItems) {
+		return
+	}
+
 	if len(events.Items) == 0 {
 		drawStringAnchoredCenter(dc, "없음", 100, dispW/2, dispH/2)
 	} else {
-		for _, item := range events.Items {
-			start := item.Start.DateTime
-			end := item.End.DateTime
-
-			str := stripStr(fmt.Sprintf("- %s ~ %s", start.Format("15:04"), end.Format("15:04")))
+		for _, item := range dispItems {
+			str := stripStr(fmt.Sprintf("- %s ~ %s", item.FromT, item.ToT))
 			drawString(dc, str, fsH1, 20, h+fsH1+10)
 			h += fsH1 + 10
-			str = stripStr(fmt.Sprintf("    %v", item.Summary))
+			str = stripStr(fmt.Sprintf("    %v", item.Desc))
 			drawString(dc, str, fsH1, 20, h+fsH1+10)
 			h += fsH1 + 10
 
@@ -77,6 +89,8 @@ func drawDisp(dc *gg.Context, nick string, now time.Time, events calendar.Events
 			}
 		}
 	}
+
+	lastDispItems = dispItems
 
 	// draw footer
 	_, ip, _, _ := resolveNet()
