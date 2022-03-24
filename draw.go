@@ -69,10 +69,6 @@ func drawDisp(dc *gg.Context, nick string, now time.Time, events calendar.Events
 		dispItems[i].Desc = item.Summary
 	}
 
-	if isEqualEvents(dispItems, lastDispItems) {
-		return
-	}
-
 	if len(events.Items) == 0 {
 		drawStringAnchoredCenter(dc, "없음", 100, dispW/2, dispH/2)
 	} else {
@@ -90,8 +86,6 @@ func drawDisp(dc *gg.Context, nick string, now time.Time, events calendar.Events
 		}
 	}
 
-	lastDispItems = dispItems
-
 	// draw footer
 	_, ip, _, _ := resolveNet()
 	drawStringAnchoredBR(dc, ip+"; "+now.Format("2006-01-02 15:04")+"; "+flagInterval, fsH3, dispW, dispH)
@@ -99,8 +93,14 @@ func drawDisp(dc *gg.Context, nick string, now time.Time, events calendar.Events
 	if flagDryrun {
 		dc.SavePNG(display)
 	} else {
+		if isEqualEvents(dispItems, lastDispItems) {
+			return
+		}
+
 		updatePanel(dc.Image())
 		updatePanel(dc.Image())
+
+		lastDispItems = dispItems
 	}
 }
 

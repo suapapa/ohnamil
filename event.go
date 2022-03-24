@@ -8,6 +8,11 @@ func isEqualEvents(e1, e2 []Event) bool {
 	if e1 == nil && e2 == nil {
 		return true
 	}
+
+	if e1 == nil || e2 == nil {
+		return false
+	}
+
 	if len(e1) != len(e2) {
 		return false
 	}
