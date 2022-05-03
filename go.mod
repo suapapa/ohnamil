@@ -11,3 +11,5 @@ require (
 	golang.org/x/image v0.0.0-20211028202545-6944b10bf410
 	periph.io/x/periph v3.6.8+incompatible
 )
+
+require github.com/lestrrat-go/dither v0.0.0-20180426220553-2a6e1152a49e

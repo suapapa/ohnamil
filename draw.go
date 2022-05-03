@@ -9,6 +9,7 @@ import (
 
 	"github.com/fogleman/gg"
 	"github.com/golang/freetype/truetype"
+	"github.com/lestrrat-go/dither"
 	"github.kakaoenterprise.in/IoTEngine/go_kakaowork-bot/calendar"
 	"golang.org/x/image/font"
 )
@@ -97,8 +98,10 @@ func drawDisp(dc *gg.Context, nick string, now time.Time, events calendar.Events
 			return
 		}
 
-		updatePanel(dc.Image())
-		updatePanel(dc.Image())
+		img := dc.Image()
+		ditheredImg := dither.Monochrome(dither.Burkes, img, 1.18)
+		updatePanel(ditheredImg)
+		updatePanel(ditheredImg)
 
 		lastDispItems = dispItems
 	}
