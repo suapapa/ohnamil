@@ -8,7 +8,23 @@
 
     GOPRIVATE=github.kakaoenterprise.in/IoTEngine go get
 
-## Build and deploy (to RPi)
+## Deploy binary and service script
 
     ./deploy {IP_OF_RPI}
 
+## install to RPi
+
+Enable SPI from;
+
+    rasp-config
+
+Install ther service
+
+    sudo ln -s /home/pi/ohnamil.service /lib/systemd/system/
+    sudo systemctl enable ohnamil.service
+
+Increase spi buffer size:
+
+    sudo vi /etc/modprobe.d/local.conf
+    ...
+    options spidev bufsiz=65536
