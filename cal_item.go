@@ -4,6 +4,7 @@ import (
 	"time"
 
 	kep_cal "github.kakaoenterprise.in/cassian-l/go_kakaowork-bot/calendar"
+	google_cal "google.golang.org/api/calendar/v3"
 )
 
 type CalItem struct {
@@ -16,6 +17,16 @@ func NewCalItemFromKepCalItem(item *kep_cal.Item) *CalItem {
 	return &CalItem{
 		Start:   item.Start.DateTime,
 		End:     item.End.DateTime,
+		Summary: item.Summary,
+	}
+}
+
+func NewCalItemFromGoogleCalItem(item *google_cal.Event) *CalItem {
+	start, _ := time.Parse(time.RFC3339, item.Start.DateTime)
+	end, _ := time.Parse(time.RFC3339, item.End.DateTime)
+	return &CalItem{
+		Start:   start,
+		End:     end,
 		Summary: item.Summary,
 	}
 }

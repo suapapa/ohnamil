@@ -11,7 +11,7 @@ var (
 	kepCalBot *calendar.Client
 )
 
-func getKepEvents(kepID string, from, to time.Time) (CalItems, error) {
+func getKepCalItems(kepID string, from, to time.Time) (CalItems, error) {
 	if kepCalBot == nil {
 		kepCalBot = calendar.NewClient(kepID)
 	}

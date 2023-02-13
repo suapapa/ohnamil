@@ -9,21 +9,24 @@ import (
 )
 
 var (
-	flagDryrun   bool
-	flagInterval string
-	// flagKepID    string
+	flagDryrun      bool
+	flagInterval    string
+	flagGoogleCalID string
+	flagKepID       string
+	flagDisplayName string
 )
 
 func main() {
 	flag.BoolVar(&flagDryrun, "n", false, "dont disp. just save png")
 	flag.StringVar(&flagInterval, "i", "15m", "display update interval")
-	// flag.StringVar(&flagKepID, "kep", "", "kep ldap id")
+	flag.StringVar(&flagGoogleCalID, "gcal", "primary", "google calendar id")
+	flag.StringVar(&flagKepID, "kep", "", "kep ldap id")
+	flag.StringVar(&flagDisplayName, "d", "", "display user name")
 	flag.Parse()
 
 	initHW()
 
-	kepID := flag.Arg(0)
-	showTodayEvents(kepID)
+	showTodayEvents(flagKepID)
 }
 
 func showTodayEvents(kepID string) {
@@ -34,17 +37,25 @@ func showTodayEvents(kepID string) {
 	tkr := time.NewTicker(dur)
 
 	now := time.Now()
+	var items CalItems
 	for {
 		end := time.Date(now.Year(), now.Month(), now.Day(), 23, 59, 59, 0, now.Location())
 		log.Printf("update display for now: %v", now)
+
 		// 오늘 남은 일정 조회
-		items, err := getKepEvents(kepID, now, end)
+		kepItems, err := getKepCalItems(kepID, now, end)
 		if err != nil {
 			log.Fatal(err)
 		}
+		items = append(items, kepItems...)
+		googleItems, err := getGoogleCalItems(now, end)
+		if err != nil {
+			log.Fatal(err)
+		}
+		items = append(items, googleItems...)
 
 		dc := gg.NewContext(dispW, dispH)
-		drawDisp(dc, kepID, now, items)
+		drawDisp(dc, flagDisplayName, now, items)
 
 		now = <-tkr.C
 	}
