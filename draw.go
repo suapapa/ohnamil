@@ -10,7 +10,7 @@ import (
 	"github.com/fogleman/gg"
 	"github.com/golang/freetype/truetype"
 	"github.com/lestrrat-go/dither"
-	"github.kakaoenterprise.in/IoTEngine/go_kakaowork-bot/calendar"
+	"github.kakaoenterprise.in/cassian-l/go_kakaowork-bot/calendar"
 	"golang.org/x/image/font"
 )
 
@@ -49,7 +49,7 @@ var (
 	lastDispItems []Event
 )
 
-func drawDisp(dc *gg.Context, nick string, now time.Time, events calendar.Events) {
+func drawDisp(dc *gg.Context, nick string, now time.Time, eventItems []*calendar.Item) {
 	dc.SetColor(color.White)
 	dc.Clear()
 	dc.SetRGB(0, 0, 0)
@@ -60,17 +60,17 @@ func drawDisp(dc *gg.Context, nick string, now time.Time, events calendar.Events
 	h += fsH2 + 10
 	h += 5
 
-	items := calItems(events.Items)
+	items := calItems(eventItems)
 	sort.Sort(items)
 
-	dispItems := make([]Event, len(events.Items))
-	for i, item := range events.Items {
+	dispItems := make([]Event, len(eventItems))
+	for i, item := range eventItems {
 		dispItems[i].FromT = item.Start.DateTime.Format("15:04")
 		dispItems[i].ToT = item.End.DateTime.Format("15:04")
 		dispItems[i].Desc = item.Summary
 	}
 
-	if len(events.Items) == 0 {
+	if len(eventItems) == 0 {
 		drawStringAnchoredCenter(dc, "없음", 100, dispW/2, dispH/2)
 	} else {
 		for _, item := range dispItems {
