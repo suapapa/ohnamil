@@ -38,13 +38,13 @@ func showTodayEvents(kepID string) {
 		end := time.Date(now.Year(), now.Month(), now.Day(), 23, 59, 59, 0, now.Location())
 		log.Printf("update display for now: %v", now)
 		// 오늘 남은 일정 조회
-		evtItems, err := getKepEvents(kepID, now, end)
+		items, err := getKepEvents(kepID, now, end)
 		if err != nil {
 			log.Fatal(err)
 		}
 
 		dc := gg.NewContext(dispW, dispH)
-		drawDisp(dc, kepID, now, evtItems)
+		drawDisp(dc, kepID, now, items)
 
 		now = <-tkr.C
 	}

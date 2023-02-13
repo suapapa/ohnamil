@@ -11,7 +11,7 @@ var (
 	kepCalBot *calendar.Client
 )
 
-func getKepEvents(kepID string, from, to time.Time) ([]*calendar.Item, error) {
+func getKepEvents(kepID string, from, to time.Time) (CalItems, error) {
 	if kepCalBot == nil {
 		kepCalBot = calendar.NewClient(kepID)
 	}
@@ -21,5 +21,9 @@ func getKepEvents(kepID string, from, to time.Time) ([]*calendar.Item, error) {
 		return nil, errors.Wrap(err, "failed to get kep personal events")
 	}
 
-	return resp.Events.Items, nil
+	ret := make(CalItems, len(resp.Events.Items))
+	for i, item := range resp.Events.Items {
+		ret[i] = NewCalItemFromKepCalItem(item)
+	}
+	return ret, nil
 }
