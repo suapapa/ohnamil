@@ -26,10 +26,10 @@ func main() {
 
 	initHW()
 
-	showTodayEvents(flagKepID)
+	showTodayEvents()
 }
 
-func showTodayEvents(kepID string) {
+func showTodayEvents() {
 	dur, err := time.ParseDuration(flagInterval)
 	if err != nil {
 		log.Fatal(err)
@@ -43,7 +43,7 @@ func showTodayEvents(kepID string) {
 		log.Printf("update display for now: %v", now)
 
 		// 오늘 남은 일정 조회
-		kepItems, err := getKepCalItems(kepID, now, end)
+		kepItems, err := getKepCalItems(flagKepID, now, end)
 		if err != nil {
 			log.Fatal(err)
 		}
