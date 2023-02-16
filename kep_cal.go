@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.kakaoenterprise.in/cassian-l/go_kakaowork-bot/calendar"
+	"github.kakaoenterprise.in/gopher/go_kakaowork-bot/calendar"
 )
 
 var (

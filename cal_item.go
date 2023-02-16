@@ -3,7 +3,7 @@ package main
 import (
 	"time"
 
-	kep_cal "github.kakaoenterprise.in/cassian-l/go_kakaowork-bot/calendar"
+	kep_cal "github.kakaoenterprise.in/gopher/go_kakaowork-bot/calendar"
 	google_cal "google.golang.org/api/calendar/v3"
 )
 
