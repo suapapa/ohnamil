@@ -1,5 +1,5 @@
 #!/bin/bash
 
-GOARCH=arm GOOS=linux go build
-scp ohnamil pi@$1:~/
-scp ohnamil.service pi@$1:~/
+GOARCH=arm GOOS=linux GOARM=6 go build
+scp ohnamil $1:~/
+# scp ohnamil.service $1:~/

@@ -13,7 +13,7 @@ var (
 	googleCalSvc *calendar.Service
 )
 
-func getGoogleCalItems(from, to time.Time) (CalItems, error) {
+func getGoogleCalItems(calID string, from, to time.Time) (CalItems, error) {
 	if googleCalSvc == nil {
 		svc, err := NewGoogleCalSvc(context.Background())
 		if err != nil {
@@ -24,7 +24,7 @@ func getGoogleCalItems(from, to time.Time) (CalItems, error) {
 
 	minT := from.Format(time.RFC3339)
 	maxT := to.Format(time.RFC3339)
-	events, err := googleCalSvc.Events.List(flagGoogleCalID).ShowDeleted(false).
+	events, err := googleCalSvc.Events.List(calID).ShowDeleted(false).
 		SingleEvents(true).TimeMin(minT).TimeMax(maxT).MaxResults(10).OrderBy("startTime").Do()
 	if err != nil {
 		return nil, err
